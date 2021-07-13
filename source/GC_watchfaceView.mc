@@ -43,7 +43,11 @@ class GC_watchfaceView extends WatchUi.WatchFace {
         var powerString = Lang.format("$1$%", [stats.battery.format("%02d")]);
         if (stats.charging)
         {
-            powerString = powerString + "....";
+            powerString = "充电：" + powerString;
+        }
+        else
+        {
+            powerString = "电量：" + powerString;
         }
         var powerView = View.findDrawableById("PowerLabel") as Text;
         powerView.setText(powerString);
@@ -52,11 +56,11 @@ class GC_watchfaceView extends WatchUi.WatchFace {
     function setDeviceDisp(){
         var devSettings = System.getDeviceSettings();
 
-        var deviceString = "not connected";
+        var deviceString = "未连接";
         var conn = devSettings.phoneConnected;
         if (conn)
         {
-            deviceString = "connected";
+            deviceString = "已连接";
         }
         var deviceView = View.findDrawableById("DeviceLabel") as Text;
         deviceView.setText(deviceString);
@@ -66,7 +70,7 @@ class GC_watchfaceView extends WatchUi.WatchFace {
         {
             alarms = "9+";
         }
-        var alarmString = alarms + " alm(s)";
+        var alarmString = "提醒：" + alarms;
         var alarmView = View.findDrawableById("AlarmLabel") as Text;
         alarmView.setText(alarmString);
         
@@ -75,7 +79,7 @@ class GC_watchfaceView extends WatchUi.WatchFace {
         {
             notifications = "9+";
         }
-        var NotificationString = notifications + " ntf(s)";
+        var NotificationString = "消息：" + notifications;
         var NotificationView = View.findDrawableById("NotificationLabel") as Text;
         NotificationView.setText(NotificationString);
     }
@@ -94,10 +98,10 @@ class GC_watchfaceView extends WatchUi.WatchFace {
     
     function setStepFloorDisp(){
         var info = ActivityMonitor.getInfo();
-        var stepString = Lang.format("steps: $1$/$2$", [info.steps, info.stepGoal]);
+        var stepString = Lang.format("步数：$1$/$2$", [info.steps, info.stepGoal]);
         var stepView = View.findDrawableById("StepLabel") as Text;
         stepView.setText(stepString);
-        var FloorString = Lang.format("floors: $1$/$2$", [info.floorsClimbed, info.floorsClimbedGoal]);
+        var FloorString = Lang.format("楼层：$1$/$2$", [info.floorsClimbed, info.floorsClimbedGoal]);
         var FloorView = View.findDrawableById("FloorLabel") as Text;
         FloorView.setText(FloorString);
     }
@@ -110,24 +114,24 @@ class GC_watchfaceView extends WatchUi.WatchFace {
         {
             hr = "--";
         }
-        var healthyString = Lang.format("HR: $1$", [hr]);
+        var healthyString = Lang.format("心率：$1$", [hr]);
         var healthyView = View.findDrawableById("HealthyLabel") as Text;
         healthyView.setText(healthyString);
 
-        var altString = "altidude:";
+        var altString = "高度：";
         var altitude = info.altitude;
         if (null != altitude)
         {
-            altString = altString + ' ' + altitude.format("%02d");
+            altString = altString + altitude.format("%02d");
         }
         var altView = View.findDrawableById("AltLabel") as Text;
         altView.setText(altString);
 
-        var pressureString = "pressure:";
+        var pressureString = "气压：";
         var pressure = info.ambientPressure;
         if (null != pressure)
         {
-            pressureString = pressureString + ' ' + pressure.format("%02d");
+            pressureString = pressureString + pressure.format("%02d");
         }
         var pressureView = View.findDrawableById("PressureLabel") as Text;
         pressureView.setText(pressureString);
