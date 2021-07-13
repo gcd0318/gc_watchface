@@ -40,7 +40,7 @@ class GC_watchfaceView extends WatchUi.WatchFace {
     function setSystemDisp(){
         // Get and show the battery
         var stats = System.getSystemStats();
-        var powerString = Lang.format("$1$%", [stats.battery.format("%02d")]);
+        var powerString = Lang.format("$1$", [stats.battery.format("%02d")]);
         if (stats.charging)
         {
             powerString = "充电：" + powerString;
