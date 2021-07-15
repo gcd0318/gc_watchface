@@ -7,6 +7,7 @@ import Toybox.Time;
 import Toybox.Time.Gregorian;
 import Toybox.WatchUi;
 
+
 class GC_watchfaceView extends WatchUi.WatchFace {
 
     function initialize() {
@@ -31,7 +32,7 @@ class GC_watchfaceView extends WatchUi.WatchFace {
         setDatetimeDisp();
         setStepFloorDisp();
         setActivityDisp();
-
+        
         // Call the parent onUpdate function to redraw the layout
         View.onUpdate(dc);
     }
@@ -56,11 +57,11 @@ class GC_watchfaceView extends WatchUi.WatchFace {
     function setDeviceDisp(){
         var devSettings = System.getDeviceSettings();
 
-        var deviceString = "未连接";
+        var deviceString = "断开";
         var conn = devSettings.phoneConnected;
         if (conn)
         {
-            deviceString = "已连接";
+            deviceString = "连接";
         }
         var deviceView = View.findDrawableById("DeviceLabel") as Text;
         deviceView.setText(deviceString);
