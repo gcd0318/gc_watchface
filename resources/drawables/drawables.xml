@@ -1,3 +1,24 @@
 <drawables>
     <bitmap id="LauncherIcon" filename="launcher_icon.png" />
+
+    <bitmap id="PowerIcon" filename="power_24.png" />
+    <bitmap id="ChargingIcon" filename="charging_24.png" />
+
+    <bitmap id="ConnectedIcon" filename="connected_24.png" />
+    <bitmap id="DisconnectedIcon" filename="disconnected_24.png" />
+
+    <bitmap id="StepIcon" filename="step_24.png" />
+    <bitmap id="FloorIcon"  filename="floor_24.png" />
+
+    <bitmap id="AlarmIcon"  filename="alarm_24.png" />
+    <bitmap id="NotificationIcon"  filename="notification_24.png" />
+
+    <bitmap id="PressureIcon" filename="pressure_24.png" />
+    <bitmap id="HeightIcon"  filename="height_24.png" />
+
+    <bitmap id="HeartrateIcon" filename="heartrate_24.png" />
+
+    <bitmap id="GpsIcon" filename="gps_24.png" />
+    <bitmap id="NogpsIcon" filename="nogps_24.png" />
 </drawables>
+
