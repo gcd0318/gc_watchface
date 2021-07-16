@@ -1,4 +1,7 @@
 <drawables>
+    <bitmap id="background" filename="background.jpg" />
+
+
     <bitmap id="LauncherIcon" filename="launcher_icon.png" />
 
     <bitmap id="PowerIcon" filename="power_24.png" />
