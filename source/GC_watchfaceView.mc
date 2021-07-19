@@ -190,20 +190,25 @@ class GC_watchfaceView extends WatchUi.WatchFace {
     function setGpsDisp(dc){
         var posInfo = Position.getInfo();
         var altString = "--";
-        if (Position.QUALITY_POOR < posInfo.accuracy)
+        if (Position.QUALITY_POOR <= posInfo.accuracy)
         {
             gpsIcon.draw(dc);
             if (posInfo has :altitude && posInfo.altitude != null)
             {
-                altString = posInfo.altitude.format("%02d");
+                altString = posInfo.altitude;
             }
         }
         else
         {
             nogpsIcon.draw(dc);
         }
+        if (altString.equals("--"))
+        {
+            var actInfo = Activity.getActivityInfo();
+            altString = actInfo.altitude;
+        }
         heightIcon.draw(dc);
-        dc.drawText(height_x + 25, height_y, Graphics.FONT_XTINY, altString, Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(height_x + 25, height_y, Graphics.FONT_XTINY, altString.format("%d"), Graphics.TEXT_JUSTIFY_LEFT);
     }
 
 
@@ -211,10 +216,9 @@ class GC_watchfaceView extends WatchUi.WatchFace {
         // Get and show the battery
 
         var stats = System.getSystemStats();
-        var powerString = Lang.format("$1$", [stats.battery.format("%02d")]);
+        var powerString = stats.battery.format("%d");
         dc.drawText(power_x + 25, power_y, Graphics.FONT_XTINY, powerString, Graphics.TEXT_JUSTIFY_LEFT);
-//        var powerView = View.findDrawableById("PowerLabel") as Text;
-//        powerView.setText(powerString);
+
         if (stats.charging)
         {
             chargingIcon.draw(dc);
@@ -237,7 +241,6 @@ class GC_watchfaceView extends WatchUi.WatchFace {
             disconnectedIcon.draw(dc);
         }
         var deviceView = View.findDrawableById("DeviceLabel") as Text;
-//        deviceView.setText(deviceString);
         
         var alarmView = View.findDrawableById("AlarmLabel") as Text;
         var alarms = devSettings.alarmCount;
@@ -255,7 +258,7 @@ class GC_watchfaceView extends WatchUi.WatchFace {
     
     function setDatetimeDisp(dc){
         var now = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
-        var timeString = Lang.format("$1$:$2$", [now.hour, now.min.format("%02d")]);
+        var timeString = Lang.format("$1$:$2$", [now.hour, now.min.format("%d")]);
         dc.drawText(time_x, time_y, Graphics.FONT_NUMBER_MEDIUM, timeString, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
         var today = Gregorian.info(Time.now(), Time.FORMAT_MEDIUM);
@@ -267,7 +270,6 @@ class GC_watchfaceView extends WatchUi.WatchFace {
         var info = ActivityMonitor.getInfo();
         var stepString = Lang.format("$1$/$2$", [info.steps, info.stepGoal]);
         var FloorString = Lang.format("$1$/$2$", [info.floorsClimbed, info.floorsClimbedGoal]);
-
         stepIcon.draw(dc);
         dc.drawText(step_x + 25, step_y, Graphics.FONT_XTINY, stepString, Graphics.TEXT_JUSTIFY_LEFT);
         floorIcon.draw(dc);
@@ -281,7 +283,7 @@ class GC_watchfaceView extends WatchUi.WatchFace {
         var hr = info.currentHeartRate;
         if (null != hr)
         {
-            healthyString = Lang.format("$1$", [hr]);
+            healthyString = hr.format("%d");
         }
         
         heartrateIcon.draw(dc);
@@ -291,7 +293,7 @@ class GC_watchfaceView extends WatchUi.WatchFace {
         var pressure = info.ambientPressure;
         if (null != pressure)
         {
-            pressureString = pressure.format("%02d");
+            pressureString = pressure.format("%d");
         }
         pressureIcon.draw(dc);
         dc.drawText(pressure_x + 25, pressure_y, Graphics.FONT_XTINY, pressureString, Graphics.TEXT_JUSTIFY_LEFT);
