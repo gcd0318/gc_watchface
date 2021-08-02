@@ -162,7 +162,7 @@ class GC_watchfaceView extends WatchUi.WatchFace {
 
     // Load your resources here
     function onLayout(dc as Dc) as Void {
-        setLayout(Rez.Layouts.GCWatchFace(dc));
+//        setLayout(Rez.Layouts.GCWatchFace(dc));
     }
 
     // Called when this View is brought to the foreground. Restore
@@ -258,7 +258,7 @@ class GC_watchfaceView extends WatchUi.WatchFace {
     
     function setDatetimeDisp(dc){
         var now = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
-        var timeString = Lang.format("$1$:$2$", [now.hour, now.min.format("%d")]);
+        var timeString = Lang.format("$1$:$2$", [now.hour, now.min.format("%02d")]);
         dc.drawText(time_x, time_y, Graphics.FONT_NUMBER_MEDIUM, timeString, Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
         var today = Gregorian.info(Time.now(), Time.FORMAT_MEDIUM);
@@ -268,12 +268,10 @@ class GC_watchfaceView extends WatchUi.WatchFace {
     
     function setStepFloorDisp(dc){
         var info = ActivityMonitor.getInfo();
-        var stepString = Lang.format("$1$/$2$", [info.steps, info.stepGoal]);
-        var FloorString = Lang.format("$1$/$2$", [info.floorsClimbed, info.floorsClimbedGoal]);
         stepIcon.draw(dc);
-        dc.drawText(step_x + 25, step_y, Graphics.FONT_XTINY, stepString, Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(step_x + 25, step_y, Graphics.FONT_XTINY, info.steps - info.stepGoal, Graphics.TEXT_JUSTIFY_LEFT);
         floorIcon.draw(dc);
-        dc.drawText(floor_x + 25, floor_y, Graphics.FONT_XTINY, FloorString, Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(floor_x + 25, floor_y, Graphics.FONT_XTINY, info.floorsClimbed - info.floorsClimbedGoal, Graphics.TEXT_JUSTIFY_LEFT);
     }
     
     function setActivityDisp(dc){
